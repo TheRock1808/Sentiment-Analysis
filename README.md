@@ -1,2 +1,2 @@
 # Sentiment-Analysis
-this project is based on sentiment analysis. It takes sentences and analysis whether it is positive, negative or neutral. 
+This project is based on sentiment analysis. It takes sentences as input and analyzes whether positive, negative, or neutral. 
