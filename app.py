@@ -11,7 +11,7 @@ from nltk.stem import PorterStemmer
 from collections import Counter
 import pickle
 import sklearn
-
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
 clf = pickle.load(open('clf.pkl', 'rb'))
 tfidf = pickle.load(open('tfidf.pkl', 'rb'))
@@ -25,8 +25,6 @@ emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
 nltk_stopwords = set(stopwords.words('english'))
 nltk_stopwords.remove('not')
 
-from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
-
 sklearn_stopwords = set(ENGLISH_STOP_WORDS)
 
 # joining both the stopwords
@@ -35,7 +33,6 @@ all_stopwords = nltk_stopwords.union(sklearn_stopwords)
 all_stopwords_list = list(all_stopwords)
 
 print(len(all_stopwords_list))
-
 
 
 def cleaning_the_data(text):
@@ -81,9 +78,12 @@ def index():
 def predict():
     if request.method == 'POST':
         message = request.form['message']
+        print(message)
         cleaned_message = normalize_text(message)
+        print(cleaned_message)
         message_vector = tfidf.transform([cleaned_message])
-        prediction = clf.predict(message_vector)[0]
+        print(message_vector)
+        prediction = clf.predict(message_vector)
         print(prediction)
         return render_template("index.html", prediction=prediction)
 
