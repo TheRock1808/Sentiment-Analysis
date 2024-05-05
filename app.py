@@ -1,6 +1,4 @@
 from flask import Flask, request, render_template
-# import pandas as pd
-# import matplotlib.pyplot as plt
 import re
 import nltk
 from nltk.corpus import stopwords
@@ -17,11 +15,7 @@ clf = pickle.load(open('clf1.pkl', 'rb'))
 tfidf = pickle.load(open('tfidf1.pkl', 'rb'))
 
 emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
-# nltk.download('punkt')
-# nltk.download('wordnet')
 
-# Combining nltk stopwords and sklearn stopwrods.
-# nltk.download('stopwords')
 nltk_stopwords = set(stopwords.words('english'))
 nltk_stopwords.remove('not')
 
