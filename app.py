@@ -32,8 +32,6 @@ all_stopwords = nltk_stopwords.union(sklearn_stopwords)
 
 all_stopwords_list = list(all_stopwords)
 
-print(len(all_stopwords_list))
-
 
 def cleaning_the_data(text):
     if not isinstance(text, str):
@@ -54,17 +52,17 @@ def normalize_text(text):
     cleaned_text = cleaning_the_data(text)
     # Tokenize the text
     tokens = word_tokenize(cleaned_text)
-
+    
     # Lemmatize words
     lemmatizer = WordNetLemmatizer()
     lemmatized_tokens = [lemmatizer.lemmatize(word, pos='a') for word in tokens if len(word) > 2]
-
+    
+    # Remove stopwords
+    filtered_tokens = [word for word in lemmatized_tokens if word.lower() not in all_stopwords_list]
+    
     # Join tokens back into a single string
-    normalized_text = ' '.join(lemmatized_tokens)
+    normalized_text = ' '.join(filtered_tokens)
     return normalized_text
-
-
-# train_data['normalized_text'] = train_data['text'].apply(normalize_text)
 
 app = Flask(__name__)
 
