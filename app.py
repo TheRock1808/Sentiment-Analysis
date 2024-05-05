@@ -18,6 +18,7 @@ tfidf = pickle.load(open('tfidf.pkl', 'rb'))
 emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
 # nltk.download('punkt')
 # nltk.download('wordnet')
+<<<<<<< HEAD
 
 # Combining nltk stopwords and sklearn stopwrods.
 # nltk.download('stopwords')
@@ -34,6 +35,8 @@ all_stopwords = nltk_stopwords.union(sklearn_stopwords)
 all_stopwords_list = list(all_stopwords)
 
 print(len(all_stopwords_list))
+=======
+>>>>>>> 300374e6aca3107a21ebb2256b890847b0e7ddbb
 
 
 def cleaning_the_data(text):
@@ -69,6 +72,12 @@ def normalize_text(text):
 
 app = Flask(__name__)
 
+<<<<<<< HEAD
+=======
+@app.route('/',methods=['POST','GET'])
+def index():
+    return render_template('index.html')
+>>>>>>> 300374e6aca3107a21ebb2256b890847b0e7ddbb
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
@@ -82,7 +91,12 @@ def predict():
         cleaned_message = normalize_text(message)
         message_vector = tfidf.transform([cleaned_message])
         prediction = clf.predict(message_vector)[0]
+<<<<<<< HEAD
         return render_template("index.html", predition=prediction)
+=======
+
+        return render_template('index.html', predition=prediction)
+>>>>>>> 300374e6aca3107a21ebb2256b890847b0e7ddbb
 
 
 if __name__ == '__main__':
