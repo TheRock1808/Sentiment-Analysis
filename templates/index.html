@@ -84,7 +84,6 @@
     </style>
     <!-- Heading -->
     <h1>Sentiment Analysis</h1>
-
     <!-- Form -->
     <form action="/predict" method="POST">
         <label for="message">Enter the text you want to analyze</label><br>
@@ -93,8 +92,10 @@
     </form>
     {% if sentiment is defined %}
             <div class="result">
-                {% if sentiment == 1 %}
+                {% if prediction == 1 %}
                     <div class="alert alert-success" role="alert">Positive comment!</div>
+                {% elif prediction == 0 %}
+                    <div class="alert alert-primary" role="alert">Neutral comment!</div>
                 {% else %}
                     <div class="alert alert-danger" role="alert">Negative comment!</div>
                 {% endif %}
