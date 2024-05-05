@@ -17,8 +17,8 @@ tfidf = pickle.load(open('tfidf.pkl', 'rb'))
 app = Flask(__name__)
 
 emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
-nltk.download('punkt')
-nltk.download('wordnet')
+# nltk.download('punkt')
+# nltk.download('wordnet')
 
 
 def cleaning_the_data(text):
@@ -55,7 +55,7 @@ def normalize_text(text):
 
 @app.route('/',methods=['POST','GET'])
 def index():
-    return render_tmplate('index.html')
+    return render_template('index.html')
 
 @app.route('/predict', methods=['POST','GET'])
 def index():
@@ -65,7 +65,7 @@ def index():
         message_vector = tfidf.transform([cleaned_message])
         prediction = clf.predict(message_vector)[0]
 
-        return render_tmplate('index.html', predition=prediction)
+        return render_template('index.html', predition=prediction)
 
 
 if __name__ == '__main__':
