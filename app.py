@@ -10,15 +10,30 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 from collections import Counter
 import pickle
+import sklearn
 
 clf = pickle.load(open('clf.pkl', 'rb'))
 tfidf = pickle.load(open('tfidf.pkl', 'rb'))
 
-app = Flask(__name__)
-
 emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
-nltk.download('punkt')
-nltk.download('wordnet')
+# nltk.download('punkt')
+# nltk.download('wordnet')
+
+# Combining nltk stopwords and sklearn stopwrods.
+# nltk.download('stopwords')
+nltk_stopwords = set(stopwords.words('english'))
+nltk_stopwords.remove('not')
+
+from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
+
+sklearn_stopwords = set(ENGLISH_STOP_WORDS)
+
+# joining both the stopwords
+all_stopwords = nltk_stopwords.union(sklearn_stopwords)
+
+all_stopwords_list = list(all_stopwords)
+
+print(len(all_stopwords_list))
 
 
 def cleaning_the_data(text):
@@ -52,23 +67,23 @@ def normalize_text(text):
 
 # train_data['normalized_text'] = train_data['text'].apply(normalize_text)
 
+app = Flask(__name__)
 
-@app.route('/',methods=['POST','GET'])
-def index():
-    return render_tmplate('index.html')
 
-@app.route('/predict', methods=['POST','GET'])
+@app.route('/', methods=['POST', 'GET'])
 def index():
-    if(request.method=='POST'):
+    return render_template("index.html")
+
+
+@app.route('/predict', methods=['POST', 'GET'])
+def predict():
+    if request.method == 'POST':
         message = request.form['message']
         cleaned_message = normalize_text(message)
         message_vector = tfidf.transform([cleaned_message])
         prediction = clf.predict(message_vector)[0]
-
-        return render_tmplate('index.html', predition=prediction)
+        return render_template("index.html", predition=prediction)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
