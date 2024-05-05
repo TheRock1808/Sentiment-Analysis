@@ -13,8 +13,8 @@ import pickle
 import sklearn
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
-clf = pickle.load(open('clf.pkl', 'rb'))
-tfidf = pickle.load(open('tfidf.pkl', 'rb'))
+clf = pickle.load(open('clf1.pkl', 'rb'))
+tfidf = pickle.load(open('tfidf1.pkl', 'rb'))
 
 emoji_pattern = re.compile('(?::|;|=)(?:-)?(?:\)|\(|D|P)')
 # nltk.download('punkt')
@@ -45,6 +45,8 @@ def cleaning_the_data(text):
     new_text = re.sub(r"[^a-zA-Z]", " ", new_text)
     new_text = re.sub(emoji_pattern, '', new_text)
     new_text = new_text.lower().strip()
+
+    new_text = re.sub(r"\b(?:not|no|never|none|nobody|nowhere|nothing)\b[\w\s]+[^\w\s]", "not_negative", new_text)
     return new_text
 
 
