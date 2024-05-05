@@ -66,21 +66,21 @@
             text-align: center;
         }
 
-        .alert {
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+        /*.alert {*/
+        /*    padding: 10px 20px;*/
+        /*    border-radius: 5px;*/
+        /*    margin-bottom: 10px;*/
+        /*}*/
 
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
+        /*.alert-success {*/
+        /*    background-color: #d4edda;*/
+        /*    color: #155724;*/
+        /*}*/
 
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
+        /*.alert-danger {*/
+        /*    background-color: #f8d7da;*/
+        /*    color: #721c24;*/
+        /*}*/
     </style>
     <!-- Heading -->
     <h1>Sentiment Analysis</h1>
@@ -90,7 +90,7 @@
         <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
         <input type="submit" value="Analyze text">
     </form>
-    {% if sentiment is defined %}
+    {% if prediction is defined %}
             <div class="result">
                 {% if prediction == 1 %}
                     <div class="alert alert-success" role="alert">Positive comment!</div>

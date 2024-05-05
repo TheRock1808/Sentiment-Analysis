@@ -78,13 +78,9 @@ def index():
 def predict():
     if request.method == 'POST':
         message = request.form['message']
-        print(message)
         cleaned_message = normalize_text(message)
-        print(cleaned_message)
         message_vector = tfidf.transform([cleaned_message])
-        print(message_vector)
         prediction = clf.predict(message_vector)
-        print(prediction)
         return render_template("index.html", prediction=prediction)
 
 
